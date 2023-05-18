@@ -10,7 +10,7 @@ export default function Index() {
   return (
     <main className="h-screen w-screen">
       <div className="flex flex-col h-full w-full">
-        <div className="flex flex-col h-full w-full align-middle items-center justify-between">
+        <div className="flex flex-col h-full w-full md:w-3/4 md:self-center">
           <AuthContainer>
             <LoginForm />
           </AuthContainer>

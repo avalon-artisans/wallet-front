@@ -14,7 +14,7 @@ type AuthContainerProps = {
  */
 export default function AuthContainer({ children }: AuthContainerProps) {
   return (
-    <div className="flex flex-row w-full h-full justify-center items-center">
+    <div className="flex flex-row w-full h-full items-center">
       {children}
     </div>
   );
