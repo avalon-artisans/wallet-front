@@ -19,7 +19,7 @@ export default function RegisterForm() {
     <div className="w-full px-5">
       <div className="mb-6">
         <h1 className="text-3xl font-bold"> Register </h1>
-        <p> Enter the following details for your account. </p>
+        <p> Start managing your money effectively. </p>
       </div>
 
       <form>
