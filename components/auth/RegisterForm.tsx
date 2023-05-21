@@ -1,9 +1,20 @@
+import { useRouter } from 'next/router';
+
 /**
  * RegisterForm component
  * @author Kenneth Sumang
  * @since  2023.05.16
  */
 export default function RegisterForm() {
+  const router = useRouter();
+
+  /**
+   * Handles back button click
+   */
+  async function handleBackButtonClick() {
+    await router.push('/');
+  }
+
   return (
     <div className="w-full px-5">
       <div className="mb-6">
@@ -79,7 +90,10 @@ export default function RegisterForm() {
         </div>
 
         <div className="flex flex-row">
-          <button className="text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center mr-5">
+          <button
+            className="text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center mr-5"
+            onClick={handleBackButtonClick}
+          >
             Back
           </button>
           <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">
