@@ -1,4 +1,5 @@
 import LoginForm from '@/components/auth/LoginForm';
+import Link from 'next/link';
 
 /**
  * Index page component
@@ -19,12 +20,12 @@ export default function Index() {
             <div>
               { "Don't have an account?" }
               &nbsp;
-              <a
+              <Link
                 href="/register"
                 className="underline text-blue-500 hover:text-blue-800 visited:text-purple-600"
               >
                 {  "Sign up." }
-              </a>
+              </Link>
             </div>
           </div>
         </div>
