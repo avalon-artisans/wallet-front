@@ -8,7 +8,7 @@ import RegisterForm from '@/components/auth/RegisterForm';
 export default function Register() {
   return (
     <main className="h-screen w-screen">
-      <div className="flex flex-col h-full w-full items-center justify-center">
+      <div className="flex flex-col h-full w-full justify-center">
         <RegisterForm />
       </div>
     </main>
