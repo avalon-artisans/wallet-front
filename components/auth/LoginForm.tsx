@@ -1,9 +1,33 @@
+import React, { useState } from 'react';
+
 /**
  * LoginForm component
  * @author Kenneth Sumang
  * @since  2023.05.16
  */
 export default function LoginForm() {
+  const [ email, setEmail ] = useState('');
+  const [ password, setPassword ] = useState('');
+
+  /**
+   * Handles login button click
+   * @param event
+   */
+  async function handleLoginButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    const response = await fetch('/api/auth/callback/internal', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    });
+    console.log(response);
+  }
+
   return (
     <div className="w-full px-5">
       <div className="mb-6">
@@ -20,11 +44,13 @@ export default function LoginForm() {
           </label>
 
           <input
+            required
             type="email"
             id="email"
+            value={email}
             className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="Email Address"
-            required
+            onChange={ (e) => setEmail(e.target.value) }
           />
         </div>
 
@@ -39,13 +65,18 @@ export default function LoginForm() {
           <input
             type="password"
             id="password"
+            value={password}
             className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             required
+            onChange={ (e) => setPassword(e.target.value) }
           />
         </div>
 
         <div className="flex flex-row-reverse">
-          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">
+          <button
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+            onClick={ (e) => handleLoginButtonClick(e) }
+          >
             Log in
           </button>
         </div>

@@ -10,7 +10,14 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     session({ session, token, user }) {
+      // session.user = token.access_token;
       return session;
+    },
+    async jwt({ token, account }) {
+      if (account) {
+        token.user = account;
+      }
+      return token;
     }
   }
 };
