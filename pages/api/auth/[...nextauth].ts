@@ -1,23 +1,12 @@
 import NextAuth, {AuthOptions} from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import internalCredentialsProvider from '@/providers/auth/InternalCredentialsProvider';
 
 /**
  * Auth options for NextAuth
  */
 export const authOptions: AuthOptions = {
   providers: [
-    CredentialsProvider({
-      async authorize(credentials, req)  {
-        return {
-          email: 'admin@example.com',
-          name: 'Admin'
-        };
-      },
-      credentials: {
-        email: {},
-        password: {},
-      }
-    }),
+    internalCredentialsProvider,
   ],
   callbacks: {
     session({ session, token, user }) {
