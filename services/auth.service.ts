@@ -24,8 +24,7 @@ export default  class AuthService {
     }
 
     const credentialsObject = credentials as LoginCredentials;
-    const csrfResponse = await this.requestCsrf();
-    const response = await this.requestLogin(credentialsObject, csrfResponse.data.csrfToken);
+    const response = await this.requestLogin(credentialsObject);
     if (response.status !== 200) {
       const errorResponse = response as AxiosResponse<ErrorResponseData>;
       return {
@@ -62,32 +61,18 @@ export default  class AuthService {
   }
 
   /**
-   * Request for csrf token
-   */
-  async requestCsrf(): Promise<AxiosResponse<{ csrfToken: string }>> {
-    return axios({
-      method: 'GET',
-      url: '/api/auth/csrf'
-    });
-  }
-
-  /**
    * Requests login to NextJS API
    * @param   {LoginCredentials} credentials
-   * @param   {string} csrf
    * @returns {Promise<any>}
    */
-  async requestLogin(credentials: LoginCredentials, csrf: string): Promise<AxiosResponse<SuccessResponseData|ErrorResponseData>> {
+  async requestLogin(credentials: LoginCredentials): Promise<AxiosResponse<SuccessResponseData|ErrorResponseData>> {
     return axios({
       method: 'POST',
-      url: '/api/auth/callback/credentials',
+      url: '/api/auth/login',
       headers: {
         'Content-Type': 'application/json',
       },
-      data: {
-        ...credentials,
-        csrfToken: csrf,
-      }
+      data: credentials
     });
   }
 }

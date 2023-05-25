@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -20,9 +21,9 @@
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.4",
     "flowbite": "^1.6.5",
+    "iron-session": "^6.3.1",
     "lodash": "^4.17.21",
     "next": "13.3.4",
-    "next-auth": "^4.22.1",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -33,6 +34,7 @@
     "validatorjs": "^3.22.1"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.1",
     "@types/lodash": "^4.14.194",
     "@types/validatorjs": "^3.15.0",
     "cz-conventional-changelog": "^3.3.0",
