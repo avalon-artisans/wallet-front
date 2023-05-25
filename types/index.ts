@@ -10,24 +10,31 @@ interface ResponseData {
 }
 
 /**
- * CustomUserProfile interface from DefaultUser
+ * SuccessResponseData structure
  */
-interface CustomUserProfile extends DefaultUser {
-  id: string;
-  name: string;
-  email: string;
-  access_token: string;
+interface SuccessResponseData {
+  data: any;
 }
 
 /**
- * CustomSession interface from DefaultSession
+ * ErrorResponseData structure
  */
-interface CustomSession extends DefaultSession {
-  user: CustomUserProfile;
+interface ErrorResponseData {
+  errors: ErrorData[];
 }
+
+/**
+ * ErrorData type
+ */
+interface ErrorData {
+  source: any;
+  title: string;
+  detail: string;
+}
+
 
 export type {
   ResponseData,
-  CustomUserProfile,
-  CustomSession
+  SuccessResponseData,
+  ErrorResponseData
 };

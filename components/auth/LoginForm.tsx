@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AuthService from '@/services/auth.service';
 
 /**
  * LoginForm component
@@ -13,17 +14,12 @@ export default function LoginForm() {
    * Handles login button click
    * @param event
    */
-  async function handleLoginButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
+  async function handleLoginFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const response = await fetch('/api/auth/callback/internal', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
+    const authService = new AuthService();
+    const response = await authService.processLogin({
+      email: email,
+      password: password
     });
     console.log(response);
   }
@@ -34,7 +30,7 @@ export default function LoginForm() {
         <h1 className="text-3xl font-bold"> Login </h1>
         <p> Please sign in to continue. </p>
       </div>
-      <form>
+      <form onSubmit={(e) => handleLoginFormSubmit(e)}>
         <div className="mb-6">
           <label
             htmlFor="email"
@@ -73,10 +69,7 @@ export default function LoginForm() {
         </div>
 
         <div className="flex flex-row-reverse">
-          <button
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
-            onClick={ (e) => handleLoginButtonClick(e) }
-          >
+          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">
             Log in
           </button>
         </div>
