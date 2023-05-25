@@ -1,5 +1,5 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { CustomUserProfile } from '@/types';
+import { CustomUserProfile } from '@/types/auth';
 import axios from 'axios';
 
 /**
