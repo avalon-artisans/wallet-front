@@ -1,10 +1,10 @@
-import AuthService from '@/services/auth.service';
+import AuthService from '../../services/auth.service';
 
 const authService = new AuthService();
 
 test('missing email and password', async () => {
   expect(await authService.processLogin({}))
-    .toBe({
+    .toStrictEqual({
       success: false,
       message: 'Invalid credentials.'
     });
@@ -12,7 +12,7 @@ test('missing email and password', async () => {
 
 test('missing email', async () => {
   expect(await authService.processLogin({ password: '' }))
-    .toBe({
+    .toStrictEqual({
       success: false,
       message: 'Invalid credentials.'
     });
@@ -20,7 +20,7 @@ test('missing email', async () => {
 
 test('missing password', async () => {
   expect(await authService.processLogin({ email: 'admin@example.com' }))
-    .toBe({
+    .toStrictEqual({
       success: false,
       message: 'Invalid credentials.'
     });
@@ -28,7 +28,7 @@ test('missing password', async () => {
 
 test('invalid email', async () => {
   expect(await authService.processLogin({ email: 'a', password: '' }))
-    .toBe({
+    .toStrictEqual({
       success: false,
       message: 'Invalid credentials.'
     });
