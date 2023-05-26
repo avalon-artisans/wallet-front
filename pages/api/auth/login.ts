@@ -1,19 +1,40 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { ResponseData } from '@/types';
+import type { ErrorResponseData, ResponseData } from '@/types';
+import { withIronSessionApiRoute } from 'iron-session/next';
+import { sessionOptions } from '@/providers/auth/iron-session-config.provider';
+
+/**
+ * User login structure
+ */
+interface UserLoginData {
+  user_id: string;
+  name: string;
+  email: string;
+  access_token: string;
+  refresh_token: string;
+}
 
 /**
  * LoginResponseData structure
  */
 interface LoginResponseData extends ResponseData {
-  data?: {user_id: number, name: string, email: string, access_token: string}
+  data?: UserLoginData
 }
+
+/**
+ * IronSessionApiRoute
+ */
+export default withIronSessionApiRoute(
+  handler,
+  sessionOptions
+)
 
 /**
  * Handler for logging in to internal authentication
  * @param request
  * @param response
  */
-export default async function handler(request: NextApiRequest, response: NextApiResponse<LoginResponseData>) {
+async function handler(request: NextApiRequest, response: NextApiResponse<LoginResponseData|ErrorResponseData>) {
   const requestBody = request.body;
   const requestMethod = request.method;
 
@@ -21,11 +42,10 @@ export default async function handler(request: NextApiRequest, response: NextApi
     response
       .status(404)
       .json({
-        status: {
-          code: 404,
-          message: 'Not Found.'
+        errors: {
+          title: 'Invalid Request',
+          detail: 'HTTP method not supported.',
         },
-        message: 'There was an error in the request. Please check and try again.'
       });
     return;
   }
@@ -34,31 +54,27 @@ export default async function handler(request: NextApiRequest, response: NextApi
     response
       .status(400)
       .json({
-        status: {
-          code: 400,
-          message: 'Bad Request.'
+        errors: {
+          title: 'Invalid Request',
+          detail: 'Data is invalid.',
         },
-        message: 'The data is invalid.'
       });
     return;
   }
 
   // todo: implement this
-  response
-    .status(200)
-    .json({
-      status: {
-        code: 200,
-        message: 'OK'
-      },
-      data: {
-        user_id: 1,
-        name: 'John Doe',
-        email: 'email@example.com',
-        access_token: 'abc123'
-      },
-      message: 'Logged in successfully!'
-    });
+  const responseData: LoginResponseData = {
+    data: {
+      user_id: 'abc',
+      name: 'John Doe',
+      email: 'email@example.com',
+      access_token: 'abc123',
+      refresh_token: 'abc123'
+    }
+  };
+  request.session.user = responseData.data;
+  await request.session.save();
+  response.status(200).json(responseData);
 }
 
 /**

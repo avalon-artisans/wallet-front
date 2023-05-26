@@ -10,9 +10,11 @@ interface LoginCredentials {
  * User session structure
  */
 interface UserSession {
-  _id: string;
+  user_id: string;
   name: string;
   email: string;
+  access_token: string;
+  refresh_token: string;
 }
 
 export type {

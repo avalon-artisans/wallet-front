@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AuthService from '@/services/auth.service';
+import {useRouter} from "next/router";
 
 /**
  * LoginForm component
@@ -7,12 +8,14 @@ import AuthService from '@/services/auth.service';
  * @since  2023.05.16
  */
 export default function LoginForm() {
+  const router = useRouter();
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
 
   /**
    * Handles login button click
-   * @param event
+   * @param {React.FormEvent<HTMLFormElement>} event
+   * @returns {Promise<void>}
    */
   async function handleLoginFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -21,7 +24,20 @@ export default function LoginForm() {
       email: email,
       password: password
     });
-    console.log(response);
+
+    if (response.success) {
+      return redirectToDashboard();
+    }
+
+    alert(response.message);
+  }
+
+  /**
+   * Redirect to dashboard
+   * @returns {Promise<boolean>}
+   */
+  async function redirectToDashboard(): Promise<boolean> {
+    return router.push('/dashboard');
   }
 
   return (

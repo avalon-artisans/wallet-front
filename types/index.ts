@@ -1,12 +1,8 @@
-import {DefaultSession, DefaultUser} from 'next-auth';
-
 /**
  * Response data structure
  */
 interface ResponseData {
-  status: {code: number, message: string};
   data?: any;
-  message: string;
 }
 
 /**
@@ -20,14 +16,13 @@ interface SuccessResponseData {
  * ErrorResponseData structure
  */
 interface ErrorResponseData {
-  errors: ErrorData[];
+  errors: ErrorData;
 }
 
 /**
  * ErrorData type
  */
 interface ErrorData {
-  source: any;
   title: string;
   detail: string;
 }
