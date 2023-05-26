@@ -29,7 +29,7 @@ export default  class AuthService {
       const errorResponse = response as AxiosResponse<ErrorResponseData>;
       return {
         success: false,
-        message: _.map(errorResponse.data.errors, 'detail').join(' ')
+        message: errorResponse.data.errors.detail
       };
     }
 
