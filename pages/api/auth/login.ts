@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ResponseData } from '@/types';
+import type { ResponseData } from '@/types';
 
 /**
  * LoginResponseData structure

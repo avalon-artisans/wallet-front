@@ -1,8 +1,8 @@
 import Validator from 'validatorjs';
-import { LoginCredentials } from '@/types/auth';
 import axios, { AxiosResponse } from 'axios';
 import * as _ from 'lodash';
-import { ErrorResponseData, SuccessResponseData } from '@/types';
+import type { ErrorResponseData, SuccessResponseData } from '@/types';
+import type { LoginCredentials } from '@/types/auth';
 
 /**
  * AuthService class
