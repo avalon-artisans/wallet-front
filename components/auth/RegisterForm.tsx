@@ -17,9 +17,10 @@ export default function RegisterForm() {
 
   /**
    * Handles back button click
+   * @returns {Promise<boolean>}
    */
-  async function handleBackButtonClick() {
-    await router.push('/');
+  async function handleBackButtonClick(): Promise<boolean> {
+    return router.push('/');
   }
 
   return (
