@@ -44,10 +44,10 @@ export default function LoginForm() {
   return (
     <div className="w-full px-5">
       <Typography variant="h4" color="blue-gray">
-        Sign Up
+        Log In
       </Typography>
       <Typography color="gray" className="mt-1 mb-5 font-normal">
-        Enter your details to register.
+        Login with your credentials.
       </Typography>
       <form onSubmit={(e) => handleLoginFormSubmit(e)}>
         <div className="mb-6">

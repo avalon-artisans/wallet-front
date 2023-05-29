@@ -1,4 +1,7 @@
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import { Button, Input, Typography } from '@material-tailwind/react';
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 /**
  * RegisterForm component
@@ -7,6 +10,10 @@ import { useRouter } from 'next/router';
  */
 export default function RegisterForm() {
   const router = useRouter();
+  const [ name, setName ] = useState('');
+  const [ email, setEmail ] = useState('');
+  const [ password, setPassword ] = useState('');
+  const [ retypePassword, setRetypePassword ] = useState('');
 
   /**
    * Handles back button click
@@ -17,88 +24,80 @@ export default function RegisterForm() {
 
   return (
     <div className="w-full px-5">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold"> Register </h1>
-        <p> Start managing your money effectively. </p>
-      </div>
+      <Typography variant="h4" color="blue-gray">
+        Register
+      </Typography>
+      <Typography color="gray" className="mt-1 mb-6 font-normal">
+        Enter your details to register.
+      </Typography>
 
       <form>
         <div className="mb-6">
-          <label
-            htmlFor="register__name"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Your name
-          </label>
-
-          <input
-            type="text"
+          <Input
+            required
             id="register__name"
-            className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="John Doe"
-            required
+            type="text"
+            value={name}
+            label="Your Name"
+            size="lg"
+            onChange={ (e) => setName(e.target.value) }
           />
         </div>
 
         <div className="mb-6">
-          <label
-            htmlFor="register__email"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Your email
-          </label>
-
-          <input
-            type="email"
+          <Input
+            required
             id="register__email"
-            className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="johndoe@example.com"
-            required
+            type="email"
+            value={email}
+            label="Your Email"
+            size="lg"
+            onChange={ (e) => setEmail(e.target.value) }
           />
         </div>
 
         <div className="mb-6">
-          <label
-            htmlFor="register__password"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Your password
-          </label>
-
-          <input
-            type="password"
+          <Input
+            required
             id="register__password"
-            className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            required
+            type="password"
+            value={email}
+            label="Your Password"
+            size="lg"
+            onChange={ (e) => setPassword(e.target.value) }
           />
         </div>
 
         <div className="mb-6">
-          <label
-            htmlFor="register__retype_password"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Retype your password
-          </label>
-
-          <input
-            type="password"
-            id="register__retype_password"
-            className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          <Input
             required
+            id="register__retype_password"
+            type="password"
+            value={email}
+            label="Retype Your Password"
+            size="lg"
+            onChange={ (e) => setRetypePassword(e.target.value) }
           />
         </div>
 
         <div className="flex flex-row">
-          <button
-            className="text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center mr-5"
+          <Button
+            className="flex flex-row justify-center w-full px-5 py-2.5 text-center mr-5"
+            variant="text"
+            size="md"
             onClick={handleBackButtonClick}
           >
+            <ArrowLeftIcon strokeWidth={2} className="h-5 w-5 mr-3" />
             Back
-          </button>
-          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">
-            Submit
-          </button>
+          </Button>
+          <Button
+            type="submit"
+            variant="filled"
+            size="md"
+            className="w-full px-5 py-2.5 text-center"
+          >
+            Register
+          </Button>
         </div>
       </form>
     </div>
