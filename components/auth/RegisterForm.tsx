@@ -82,7 +82,7 @@ export default function RegisterForm() {
 
         <div className="flex flex-row">
           <Button
-            className="flex flex-row justify-center w-full px-5 py-2.5 text-center mr-5"
+            className="flex flex-row w-full mr-5 px-5 py-2.5 justify-center items-center text-center"
             variant="text"
             size="md"
             onClick={handleBackButtonClick}
