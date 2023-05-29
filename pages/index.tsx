@@ -1,5 +1,6 @@
 import LoginForm from '@/components/auth/LoginForm';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Button } from '@material-tailwind/react';
 
 /**
  * Index page component
@@ -7,6 +8,16 @@ import Link from 'next/link';
  * @since  2023.05.17
  */
 export default function Index() {
+  const router = useRouter();
+
+  /**
+   * Handles sign up button click event
+   * @returns {Promise<boolean>}
+   */
+  async function handleSignUpButtonClick(): Promise<boolean> {
+    return router.push('/register');
+  }
+
   return (
     <main className="h-screen w-screen">
       <div className="flex flex-col h-full w-full items-center">
@@ -16,17 +27,15 @@ export default function Index() {
               <LoginForm />
             </div>
           </div>
-          <div className="flex flex-col pb-5 lg:pt-5 items-center w-screen">
-            <div>
-              { "Don't have an account?" }
-              &nbsp;
-              <Link
-                href="/register"
-                className="underline text-blue-500 hover:text-blue-800 visited:text-purple-600"
-              >
-                {  "Sign up." }
-              </Link>
-            </div>
+          <div className="md:hidden flex flex-col px-5 pb-5 lg:pt-5 justify-center items-center w-screen">
+            <Button
+              variant="outlined"
+              size="sm"
+              className="w-full rounded-full"
+              onClick={handleSignUpButtonClick}
+            >
+              {  "Sign up" }
+            </Button>
           </div>
         </div>
       </div>

@@ -14,6 +14,14 @@ export default function LoginForm() {
   const [ password, setPassword ] = useState('');
 
   /**
+   * Handles sign up button click event
+   * @returns {Promise<boolean>}
+   */
+  async function handleSignUpButtonClick(): Promise<boolean> {
+    return router.push('/register');
+  }
+
+  /**
    * Handles login button click
    * @param {React.FormEvent<HTMLFormElement>} event
    * @returns {Promise<void>}
@@ -74,11 +82,19 @@ export default function LoginForm() {
           />
         </div>
 
-        <div className="flex flex-row-reverse">
+        <div className="flex flex-row">
+          <Button
+            variant="outlined"
+            size="sm"
+            className="hidden md:block w-full rounded-full mr-5"
+            onClick={handleSignUpButtonClick}
+          >
+            {  "Sign up" }
+          </Button>
           <Button
             type="submit"
             variant="filled"
-            className="w-full"
+            className="w-full rounded-full"
           >
             Continue
           </Button>
