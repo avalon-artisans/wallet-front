@@ -44,7 +44,7 @@ export default function LoginForm() {
   return (
     <div className="w-full px-5">
       <Typography variant="h4" color="blue-gray">
-        Log In
+        Login
       </Typography>
       <Typography color="gray" className="mt-1 mb-5 font-normal">
         Login with your credentials.
@@ -80,7 +80,7 @@ export default function LoginForm() {
             variant="filled"
             className="w-full"
           >
-            Log In
+            Continue
           </Button>
         </div>
       </form>
