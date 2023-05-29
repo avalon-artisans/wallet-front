@@ -1,6 +1,5 @@
 import Validator from 'validatorjs';
 import axios, { AxiosResponse } from 'axios';
-import * as _ from 'lodash';
 import type { ErrorResponseData, SuccessResponseData } from '@/types';
 import type { LoginCredentials } from '@/types/auth';
 
