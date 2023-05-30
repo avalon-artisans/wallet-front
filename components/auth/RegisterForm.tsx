@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button, Input, Typography } from '@material-tailwind/react';
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import UserService from '@/services/user.service';
 
 /**
  * RegisterForm component
@@ -14,6 +15,23 @@ export default function RegisterForm() {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ retypePassword, setRetypePassword ] = useState('');
+
+  /**
+   * Handles register form submit event
+   * @param event
+   * @returns {Promise<any>}
+   */
+  async function handleRegisterFormSubmit(event: React.FormEvent<HTMLFormElement>): Promise<any> {
+    event.preventDefault();
+    const userService = new UserService();
+    const response = await userService.processRegistration({
+      name: name,
+      email: email,
+      password: password,
+      retypePassword: retypePassword
+    });
+    console.log(response);
+  }
 
   /**
    * Handles back button click
@@ -32,7 +50,7 @@ export default function RegisterForm() {
         Enter your details to register.
       </Typography>
 
-      <form>
+      <form onSubmit={(event) => handleRegisterFormSubmit(event)}>
         <div className="mb-6">
           <Input
             required
