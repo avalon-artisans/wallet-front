@@ -10,14 +10,6 @@ import { Button } from '@material-tailwind/react';
 export default function Index() {
   const router = useRouter();
 
-  /**
-   * Handles sign up button click event
-   * @returns {Promise<boolean>}
-   */
-  async function handleSignUpButtonClick(): Promise<boolean> {
-    return router.push('/register');
-  }
-
   return (
     <main className="h-screen w-screen">
       <div className="flex flex-col h-full w-full items-center">
