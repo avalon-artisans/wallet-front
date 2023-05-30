@@ -27,16 +27,6 @@ export default function Index() {
               <LoginForm />
             </div>
           </div>
-          <div className="md:hidden flex flex-col px-5 pb-5 lg:pt-5 justify-center items-center w-screen">
-            <Button
-              variant="outlined"
-              size="sm"
-              className="w-full rounded-full"
-              onClick={handleSignUpButtonClick}
-            >
-              {  "Sign up" }
-            </Button>
-          </div>
         </div>
       </div>
     </main>

@@ -82,11 +82,11 @@ export default function LoginForm() {
           />
         </div>
 
-        <div className="flex flex-row">
+        <div className="flex flex-col-reverse md:flex-row">
           <Button
             variant="outlined"
             size="sm"
-            className="hidden md:block w-full rounded-full mr-5"
+            className="flex w-full rounded-full mt-3 md:mt-0 md:mr-5 items-center justify-center"
             onClick={handleSignUpButtonClick}
           >
             {  "Sign up" }
@@ -94,9 +94,9 @@ export default function LoginForm() {
           <Button
             type="submit"
             variant="filled"
-            className="w-full rounded-full"
+            className="flex w-full rounded-full items-center justify-center"
           >
-            Continue
+            { "Continue" }
           </Button>
         </div>
       </form>
