@@ -30,7 +30,14 @@ export default function RegisterForm() {
       password: password,
       retypePassword: retypePassword
     });
-    console.log(response);
+
+    if (response.success) {
+      alert('Registered successfully. Please login to continue.');
+      return router.push('/');
+    }
+
+    alert(response.message);
+    return;
   }
 
   /**
