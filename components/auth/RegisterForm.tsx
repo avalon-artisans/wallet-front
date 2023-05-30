@@ -80,7 +80,7 @@ export default function RegisterForm() {
             required
             id="register__password"
             type="password"
-            value={email}
+            value={password}
             label="Your Password"
             size="lg"
             onChange={ (e) => setPassword(e.target.value) }
@@ -92,7 +92,7 @@ export default function RegisterForm() {
             required
             id="register__retype_password"
             type="password"
-            value={email}
+            value={retypePassword}
             label="Retype Your Password"
             size="lg"
             onChange={ (e) => setRetypePassword(e.target.value) }
