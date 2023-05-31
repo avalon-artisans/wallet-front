@@ -1,6 +1,5 @@
 import LoginForm from '@/components/auth/LoginForm';
 import { useRouter } from 'next/router';
-import { Button } from '@material-tailwind/react';
 
 /**
  * Index page component
@@ -8,8 +7,6 @@ import { Button } from '@material-tailwind/react';
  * @since  2023.05.17
  */
 export default function Index() {
-  const router = useRouter();
-
   return (
     <main className="h-screen w-screen">
       <div className="flex flex-col h-full w-full items-center">

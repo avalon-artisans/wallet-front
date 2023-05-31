@@ -1,5 +1,5 @@
 import Validator from 'validatorjs';
-import axios, { AxiosResponse } from 'axios';
+import axios, {AxiosResponse, HttpStatusCode} from 'axios';
 import type { ErrorResponseData, SuccessResponseData } from '@/types';
 import type { LoginCredentials } from '@/types/auth';
 
@@ -24,7 +24,7 @@ export default  class AuthService {
 
     const credentialsObject = credentials as LoginCredentials;
     const response = await this.requestLogin(credentialsObject);
-    if (response.status !== 200) {
+    if (response.status !== HttpStatusCode.Ok) {
       const errorResponse = response as AxiosResponse<ErrorResponseData>;
       return {
         success: false,

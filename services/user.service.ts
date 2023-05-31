@@ -1,7 +1,7 @@
-import Validator, {ValidationErrors} from 'validatorjs';
 import type { RegisterFormData } from '@/types/user';
-import axios, {AxiosResponse} from "axios";
-import {ErrorResponseData, SuccessResponseData} from "@/types";
+import type { ErrorResponseData, SuccessResponseData } from '@/types';
+import axios, {AxiosResponse, HttpStatusCode} from 'axios';
+import Validator, { ValidationErrors } from 'validatorjs';
 
 /**
  * UserService class
@@ -25,7 +25,7 @@ export default class UserService {
 
     const formData = data as RegisterFormData;
     const apiResponse = await this.requestRegistration(formData);
-    if (apiResponse.status !== 200) {
+    if (apiResponse.status !== HttpStatusCode.Created) {
       const errorResponse = apiResponse as AxiosResponse<ErrorResponseData>;
       return {
         success: false,
