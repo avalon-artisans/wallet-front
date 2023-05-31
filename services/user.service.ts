@@ -1,4 +1,6 @@
 import Validator, {ValidationErrors} from 'validatorjs';
+import type { RegisterFormData } from '@/types/user';
+import axios, {AxiosResponse} from "axios";
 
 /**
  * UserService class
@@ -19,6 +21,9 @@ export default class UserService {
         message: validationResponse.message as string
       };
     }
+
+    const formData = data as RegisterFormData;
+    const apiResponse = await this.requestRegistration(formData);
     return { success: true, message: 'Done.' };
   }
 
@@ -69,5 +74,18 @@ export default class UserService {
     const firstKey = Object.keys(errors)[0];
     const firstEntry = errors[firstKey];
     return firstEntry[0];
+  }
+
+  /**
+   * Requests user registration to NextJS API
+   * @param {RegisterFormData} data
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  async requestRegistration(data: RegisterFormData): Promise<AxiosResponse<any>> {
+    return axios({
+      method: 'POST',
+      url: '/api/user/register',
+      data: data,
+    });
   }
 }
