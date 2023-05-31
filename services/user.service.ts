@@ -1,6 +1,7 @@
 import Validator, {ValidationErrors} from 'validatorjs';
 import type { RegisterFormData } from '@/types/user';
 import axios, {AxiosResponse} from "axios";
+import {ErrorResponseData, SuccessResponseData} from "@/types";
 
 /**
  * UserService class
@@ -18,13 +19,26 @@ export default class UserService {
     if (!validationResponse.success) {
       return {
         success: false,
-        message: validationResponse.message as string
+        message: validationResponse.message as string,
       };
     }
 
     const formData = data as RegisterFormData;
     const apiResponse = await this.requestRegistration(formData);
-    return { success: true, message: 'Done.' };
+    if (apiResponse.status !== 200) {
+      const errorResponse = apiResponse as AxiosResponse<ErrorResponseData>;
+      return {
+        success: false,
+        message: errorResponse.data.errors.detail,
+      };
+    }
+
+    const successResponse = apiResponse as AxiosResponse<SuccessResponseData>;
+    return {
+      success: true,
+      message: 'Successfully registered user.',
+      data: successResponse.data.data,
+    };
   }
 
   /**
@@ -37,7 +51,7 @@ export default class UserService {
       name: 'required|string',
       email: 'required|email',
       password: 'required|string',
-      retypePassword: 'required|same:password'
+      retypePassword: 'required|same:password',
     };
 
     const validationMessages = {
