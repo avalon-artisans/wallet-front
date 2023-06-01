@@ -4,7 +4,7 @@ import { getIronSession } from 'iron-session/edge';
 import { sessionOptions } from '@/providers/auth/iron-session-config.provider';
 
 export const middleware = async (request: NextRequest) => {
-  const response = NextResponse.next(); console.log(sessionOptions);
+  const response = NextResponse.next();
   const session = await getIronSession(request, response, sessionOptions);
   const { user } = session;
   const currentUrlPath = new URL(request.url).pathname;
