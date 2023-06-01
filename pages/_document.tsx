@@ -1,17 +1,11 @@
-import { Html, Head, Main, NextScript } from 'next/document'
-import AlertComponent from '@/components/AlertComponent';
-import store from "@/store";
-import {Provider} from "react-redux";
+import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head />
       <body>
-        <Provider store={store}>
-          <Main />
-          <AlertComponent />
-        </Provider>
+        <Main />
         <NextScript />
       </body>
     </Html>

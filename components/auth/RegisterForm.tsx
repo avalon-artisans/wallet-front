@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { Button, Input, Typography } from '@material-tailwind/react';
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import UserService from '@/services/user.service';
+import { useDispatch } from 'react-redux';
+import {changeAlertColor, changeAlertVisibility, changeMessage} from "@/store/slices/alertSlice";
 
 /**
  * RegisterForm component
@@ -15,6 +17,7 @@ export default function RegisterForm() {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ retypePassword, setRetypePassword ] = useState('');
+  const dispatch = useDispatch();
 
   /**
    * Handles register form submit event
@@ -32,11 +35,15 @@ export default function RegisterForm() {
     });
 
     if (response.success) {
-      alert('Registered successfully. Please login to continue.');
-      return router.push('/');
+      dispatch(changeMessage('Registered successfully. Please login to continue.'));
+      dispatch(changeAlertVisibility(true));
+      dispatch(changeAlertColor('green'));
+      return;
     }
 
-    alert(response.message);
+    dispatch(changeMessage(response.message));
+    dispatch(changeAlertVisibility(true));
+    dispatch(changeAlertColor('red'));
     return;
   }
 

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import AuthService from '@/services/auth.service';
 import { useRouter } from 'next/router';
 import { Button, Input, Typography } from '@material-tailwind/react';
+import { useDispatch } from 'react-redux';
+import {changeAlertColor, changeAlertVisibility, changeMessage} from "@/store/slices/alertSlice";
 
 /**
  * LoginForm component
@@ -12,6 +14,7 @@ export default function LoginForm() {
   const router = useRouter();
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
+  const dispatch = useDispatch();
 
   /**
    * Handles sign up button click event
@@ -38,7 +41,9 @@ export default function LoginForm() {
       return redirectToDashboard();
     }
 
-    alert(response.message);
+    dispatch(changeMessage(response.message));
+    dispatch(changeAlertColor('red'));
+    dispatch(changeAlertVisibility(true));
   }
 
   /**

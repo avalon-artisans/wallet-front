@@ -16,7 +16,7 @@ interface AlertSliceState {
 export const alertSlice = createSlice({
   name: 'alert',
   initialState: {
-    isVisible: true,
+    isVisible: false,
     color: 'red',
     message: 'Default error message.'
   } as AlertSliceState,

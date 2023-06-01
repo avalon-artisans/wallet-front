@@ -20,11 +20,11 @@ export default function AlertComponent() {
   function handleCloseButtonClick() {
     dispatch(changeAlertVisibility(false));
   }
-
-  console.log(isVisible);
+  
   return (
-    <div className="fixed bottom-0 w-screen mx-5 mb-5">
+    <div className="fixed bottom-0 w-screen px-5 mb-5">
       <Alert
+        variant="gradient"
         open={isVisible}
         color={color}
         onClose={handleCloseButtonClick}
