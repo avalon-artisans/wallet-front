@@ -1,4 +1,4 @@
-import { Alert, Button } from '@material-tailwind/react';
+import { Alert } from '@material-tailwind/react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '@/store';
 import {changeAlertVisibility} from "@/store/slices/alertSlice";
