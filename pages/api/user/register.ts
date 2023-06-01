@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { ErrorResponseData, SuccessResponseData } from '@/types';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 /**
  * Register API route
