@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Alert } from '@material-tailwind/react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '@/store';
@@ -13,6 +14,15 @@ export default function AlertComponent() {
   const color = useSelector((state: RootState) => state.alert.color);
   const message = useSelector((state: RootState) => state.alert.message);
   const dispatch = useDispatch();
+
+  /**
+   * Automatically hide the alert after 3 seconds.
+   */
+  useEffect(() => {
+    setTimeout( () => {
+      handleCloseButtonClick()
+    }, 3000);
+  });
 
   /**
    * Closes/hides the alert
