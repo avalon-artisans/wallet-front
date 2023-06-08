@@ -11,7 +11,6 @@ interface UserLoginData {
   name: string;
   email: string;
   access_token: string;
-  refresh_token: string;
 }
 
 /**
@@ -69,7 +68,6 @@ async function handler(request: NextApiRequest, response: NextApiResponse<LoginR
       name: 'John Doe',
       email: 'email@example.com',
       access_token: 'abc123',
-      refresh_token: 'abc123'
     }
   };
   request.session.user = responseData.data;
