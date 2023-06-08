@@ -1,7 +1,7 @@
 import type { RegisterFormData } from '@/types/user';
 import type { ErrorResponseData, SuccessResponseData } from '@/types';
 import axios, {AxiosResponse, HttpStatusCode} from 'axios';
-import Validator, { ValidationErrors } from 'validatorjs';
+import Joi from 'joi';
 
 /**
  * UserService class
@@ -47,47 +47,58 @@ export default class UserService {
    * @returns {success: boolean, message?: string}
    */
   validateFormData(data: any): {success: boolean, message: string|null} {
-    const validationRules = {
-      name: 'required|string',
-      email: 'required|email',
-      password: 'required|string',
-      retypePassword: 'required|same:password',
-    };
+    const PASSWORD_PATTERN = /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
-    const validationMessages = {
-      'required.name': 'Missing name.',
-      'string.name': 'Invalid name.',
-      'required.email': 'Missing email.',
-      'email.email': 'Invalid email.',
-      'required.password': 'Missing password.',
-      'string.password': 'Invalid password.',
-      'required.retypePassword': 'Missing retype password.',
-      'same.retypePassword': 'Retype password not equal.',
-    };
-
-    const validation = new Validator(data, validationRules, validationMessages);
-    if (validation.passes()) {
+    if (data.password !== data.retypePassword) {
       return {
-        success: true,
-        message: null,
+        success: false,
+        message: 'Passwords do not match.',
       };
     }
 
-    return {
-      success: false,
-      message: this.getFirstErrorMessage(validation.errors.all())
-    }
-  }
+    const schema = Joi.object({
+      name: Joi
+        .string()
+        .required()
+        .min(1)
+        .max(100)
+        .messages({
+          'any.required': 'Name is required.',
+          'string.base': 'Name must be a text.',
+          'string.min': 'Name must have a minimum of 1 character.',
+          'string.max': 'Name must not have more than 100 characters.',
+        }),
+      email: Joi
+        .string()
+        .email({ tlds: { allow: false } })
+        .required()
+        .max(100)
+        .messages({
+          'any.required': 'Email is required.',
+          'string.base': 'Email must be a valid email address.',
+          'string.email': 'Email must be a valid email address.',
+          'string.max': 'Email must not have more than 100 characters.',
+        }),
+      password: Joi
+        .string()
+        .required()
+        .pattern(PASSWORD_PATTERN)
+        .messages({
+          'any.required': 'Password is required.',
+          'string.base': 'Password must be a text.',
+          'string.pattern.base': 'Password must have at least an uppercase letter, a lowercase letter, a number, and a symbol.',
+        }),
+    });
 
-  /**
-   * Gets the first error message in the error messages object
-   * @param {ValidationErrors} errors
-   * @returns {string}
-   */
-  getFirstErrorMessage(errors: ValidationErrors): string {
-    const firstKey = Object.keys(errors)[0];
-    const firstEntry = errors[firstKey];
-    return firstEntry[0];
+    const result = schema.validate(data);
+    if (result.error !== undefined) {
+      return {
+        success: false,
+        message: result.error.message
+      }
+    }
+
+    return { success: true, message: null };
   }
 
   /**
