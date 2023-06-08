@@ -5,8 +5,8 @@ const userService = new UserService();
 test('missing name', async () => {
   const data = {
     email: 'a@a.com',
-    password: 'abc',
-    retypePassword: 'abc',
+    password: 'a1Bc!def',
+    retypePassword: 'a1Bc!def',
   };
   expect(await userService.processRegistration(data))
     .toStrictEqual({
@@ -18,8 +18,8 @@ test('missing name', async () => {
 test('missing email', async () => {
   const data = {
     name: 'abc',
-    password: 'abc',
-    retypePassword: 'abc',
+    password: 'a1Bc!def',
+    retypePassword: 'a1Bc!def',
   };
   expect(await userService.processRegistration(data))
     .toStrictEqual({
@@ -45,7 +45,7 @@ test('missing retype password', async () => {
   const data = {
     name: 'abc',
     email: 'a@a.com',
-    password: 'abc',
+    password: 'a1Bc!def',
   };
   expect(await userService.processRegistration(data))
     .toStrictEqual({
@@ -58,7 +58,7 @@ test('not equal retype password', async () => {
   const data = {
     name: 'abc',
     email: 'a@a.com',
-    password: 'abc',
+    password: 'a1Bc!def',
     retypePassword: 'abcd',
   };
   expect(await userService.processRegistration(data))
