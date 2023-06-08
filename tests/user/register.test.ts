@@ -11,7 +11,7 @@ test('missing name', async () => {
   expect(await userService.processRegistration(data))
     .toStrictEqual({
       success: false,
-      message: 'Missing name.'
+      message: 'Name is required.'
     });
 });
 
@@ -24,7 +24,7 @@ test('missing email', async () => {
   expect(await userService.processRegistration(data))
     .toStrictEqual({
       success: false,
-      message: 'Missing email.'
+      message: 'Email is required.'
     });
 });
 
@@ -37,7 +37,7 @@ test('missing password', async () => {
   expect(await userService.processRegistration(data))
     .toStrictEqual({
       success: false,
-      message: 'Missing password.'
+      message: 'Password is required.'
     });
 });
 
@@ -50,7 +50,7 @@ test('missing retype password', async () => {
   expect(await userService.processRegistration(data))
     .toStrictEqual({
       success: false,
-      message: 'Missing retype password.'
+      message: 'Passwords do not match.'
     });
 });
 
@@ -64,7 +64,7 @@ test('not equal retype password', async () => {
   expect(await userService.processRegistration(data))
     .toStrictEqual({
       success: false,
-      message: 'Retype password not equal.'
+      message: 'Passwords do not match.'
     });
 });
 
@@ -78,6 +78,6 @@ test('invalid email', async () => {
   expect(await userService.processRegistration(data))
     .toStrictEqual({
       success: false,
-      message: 'Invalid email.'
+      message: 'Email must be a valid email address.'
     });
 });
