@@ -1,7 +1,7 @@
-import Joi from 'joi';
 import axios, {AxiosResponse, HttpStatusCode} from 'axios';
 import type { ErrorResponseData, SuccessResponseData } from '@/types';
 import type { LoginCredentials } from '@/types/auth';
+import LoginValidator from '../validators/auth/login.validator';
 
 /**
  * AuthService class
@@ -46,12 +46,8 @@ export default  class AuthService {
    * @returns {boolean}
    */
   isValidCredentials(credentials: any): boolean {
-    const schema = Joi.object({
-      email: Joi.string().email().required(),
-      password: Joi.required()
-    });
-    const result = schema.validate(credentials);
-    return !result.error;
+    const validator = new LoginValidator();
+    return validator.validate(credentials).valid;
   }
 
   /**

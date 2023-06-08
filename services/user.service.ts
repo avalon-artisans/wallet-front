@@ -1,7 +1,7 @@
 import type { RegisterFormData } from '@/types/user';
 import type { ErrorResponseData, SuccessResponseData } from '@/types';
 import axios, {AxiosResponse, HttpStatusCode} from 'axios';
-import Joi from 'joi';
+import RegisterValidator from '../validators/user/register.validator';
 
 /**
  * UserService class
@@ -47,56 +47,13 @@ export default class UserService {
    * @returns {success: boolean, message?: string}
    */
   validateFormData(data: any): {success: boolean, message: string|null} {
-    const PASSWORD_PATTERN = /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+    const validator = new RegisterValidator();
 
-    const schema = Joi.object({
-      name: Joi
-        .string()
-        .required()
-        .min(1)
-        .max(100)
-        .messages({
-          'any.required': 'Name is required.',
-          'string.base': 'Name must be a text.',
-          'string.min': 'Name must have a minimum of 1 character.',
-          'string.max': 'Name must not have more than 100 characters.',
-        }),
-      email: Joi
-        .string()
-        .email({ tlds: { allow: false } })
-        .required()
-        .max(100)
-        .messages({
-          'any.required': 'Email is required.',
-          'string.base': 'Email must be a valid email address.',
-          'string.email': 'Email must be a valid email address.',
-          'string.max': 'Email must not have more than 100 characters.',
-        }),
-      password: Joi
-        .string()
-        .required()
-        .pattern(PASSWORD_PATTERN)
-        .messages({
-          'any.required': 'Password is required.',
-          'string.base': 'Password must be a text.',
-          'string.pattern.base': 'Password must have at least an uppercase letter, a lowercase letter, a number, and a symbol.',
-        }),
-      retypePassword: Joi
-        .any()
-        .equal(Joi.ref('password'))
-        .required()
-        .messages({
-          'any.required': 'Passwords do not match.',
-          'any.equal': 'Passwords do not match.',
-          'any.only': 'Passwords do not match.',
-        }),
-    });
-
-    const result = schema.validate(data);
-    if (result.error !== undefined) {
+    const result = validator.validate(data);
+    if (!result.valid) {
       return {
         success: false,
-        message: result.error.message
+        message: result.message
       }
     }
 
