@@ -49,13 +49,6 @@ export default class UserService {
   validateFormData(data: any): {success: boolean, message: string|null} {
     const PASSWORD_PATTERN = /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
-    if (data.password !== data.retypePassword) {
-      return {
-        success: false,
-        message: 'Passwords do not match.',
-      };
-    }
-
     const schema = Joi.object({
       name: Joi
         .string()
@@ -96,6 +89,13 @@ export default class UserService {
         success: false,
         message: result.error.message
       }
+    }
+
+    if (data.password !== data.retypePassword) {
+      return {
+        success: false,
+        message: 'Passwords do not match.',
+      };
     }
 
     return { success: true, message: null };
