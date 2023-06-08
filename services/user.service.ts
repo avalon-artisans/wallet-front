@@ -81,6 +81,15 @@ export default class UserService {
           'string.base': 'Password must be a text.',
           'string.pattern.base': 'Password must have at least an uppercase letter, a lowercase letter, a number, and a symbol.',
         }),
+      retypePassword: Joi
+        .any()
+        .equal(Joi.ref('password'))
+        .required()
+        .messages({
+          'any.required': 'Passwords do not match.',
+          'any.equal': 'Passwords do not match.',
+          'any.only': 'Passwords do not match.',
+        }),
     });
 
     const result = schema.validate(data);
@@ -89,13 +98,6 @@ export default class UserService {
         success: false,
         message: result.error.message
       }
-    }
-
-    if (data.password !== data.retypePassword) {
-      return {
-        success: false,
-        message: 'Passwords do not match.',
-      };
     }
 
     return { success: true, message: null };
