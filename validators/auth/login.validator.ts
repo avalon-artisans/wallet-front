@@ -12,7 +12,7 @@ export default class LoginValidator extends BaseValidator {
    * @protected
    */
   protected schema = Joi.object({
-    email: Joi.string().email().required(),
+    email: Joi.string().email({ tlds: { allow: false } }).required(),
     password: Joi.required()
   });
 }
