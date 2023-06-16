@@ -24,7 +24,7 @@ export default class BaseValidator {
    * Validates the data
    * @param data
    */
-  validate(data: any): ValidationResult {
+  validate(data: Record<string, any>): ValidationResult {
     const result = this.schema.validate(data);
     if (result.error !== undefined) {
       return {
