@@ -71,7 +71,7 @@ export default function LoginForm() {
             value={email}
             label="Your Email"
             size="lg"
-            onChange={ (e) => setEmail(e.target.value) }
+            onChange={ (e: React.FormEvent<HTMLInputElement>) => setEmail(e.currentTarget.value) }
           />
         </div>
 
@@ -83,7 +83,7 @@ export default function LoginForm() {
             value={password}
             label="Your Password"
             size="lg"
-            onChange={ (e) => setPassword(e.target.value) }
+            onChange={ (e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value) }
           />
         </div>
 
